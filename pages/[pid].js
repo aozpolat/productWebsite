@@ -1,15 +1,12 @@
-import { useRouter } from 'next/router'
-import {products} from '../elements/products'
+import {getProductByID} from '../elements/products'
 
-const Post = () => {
-  const router = useRouter()
-  const { pid } = router.query
-  
-  console.log(pid)
-  return ( 
+
+const Post = ({pid}) => {
+ const product = getProductByID(pid-1);
+ return ( 
     <div className="detail">
          <img src={`https://picsum.photos/id/${Number(pid) + 20}/400/200`} alt=""></img>
-        <h4> {products[pid-1].detail}</h4> 
+        <h4> {product.detail}</h4> 
         
         <style jsx>{`
             .detail {
@@ -22,6 +19,11 @@ const Post = () => {
   )
 }
 
-
+export const getServerSideProps = async ({params}) => {
+    const pid = params.pid;
+    return {
+       props: { pid }
+    }
+ }
  
 export default Post

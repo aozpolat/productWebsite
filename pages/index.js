@@ -1,8 +1,8 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import {products} from '../elements/products'
+import {getProducts} from '../elements/products'
 export default function Home() {
-  
+  const products = getProducts();
   
   return (
     <div className="container">
