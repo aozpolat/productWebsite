@@ -1,11 +1,11 @@
-import {getProductByID} from '../elements/products'
+import {getProductByID} from '../elements/api'
 
 
 const Post = ({product}) => {
  return ( 
     <div className="detail">
-         <img src={`https://picsum.photos/id/${product.id + 20}/400/200`} alt=""></img>
-        <h4> {product.detail}</h4> 
+         <img src={product.imageUrl} alt=""></img>
+        <h4> {product.name}</h4> 
         
         <style jsx>{`
             .detail {
@@ -19,10 +19,13 @@ const Post = ({product}) => {
 }
 
 export const getServerSideProps = async ({params}) => {
-    const product = getProductByID(params.pid-1);
+    let product;
+    const res = await getProductByID(params.pid-1);
+    product = res;
     return {
        props: { product }
     }
+    
  }
  
 export default Post

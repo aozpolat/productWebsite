@@ -1,43 +1,43 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import {getProducts} from '../elements/products'
+import {useState, useEffect} from 'react'
+import {getProducts} from '../elements/api'
+
 export default function Home() {
-  const products = getProducts();
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    getProducts().then(res => setProducts(res));
+  }, []);
   
   return (
     <div className="container">
       <Head>
+        
         <title>Test</title>
         <link rel="icon" href="/favicon.ico" />
         <link rel="preconnect" href="https://fonts.gstatic.com"/>
-        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap" rel="stylesheet"/>
-        
-        
+        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap" rel="stylesheet"/>     
       </Head>
 
       <main>
         <h1 className="title">
           Welcome 
         </h1>
-
-
         <div className="grid">
-            {products.map( (product) => (
-              <Link href={`/${product.id}`} key={product.id} > 
+            {products.map( (product, index) => (
+              <Link href={`/${index + 1}`} key={index + 1} > 
                 <a className="card"> 
-                <img src={`https://picsum.photos/id/${product.id + 20}/300/200`} alt=""></img>
-                <h3>{product.title} </h3>
+                <img src={product.imageUrl} alt=""></img>
+                <h3>{product.name} </h3>
                 <p>Click for more info</p>
                 </a>       
               </Link>
             ))}
-            
-
         </div>
       </main>
 
-      <footer>
-       
+      <footer>     
       </footer>
 
       <style jsx>{`
@@ -133,7 +133,7 @@ export default function Home() {
           margin: 1rem;
           flex-basis: 45%;
           padding: 1.5rem;
-          text-align: left;
+          text-align: center;
           color: inherit;
           text-decoration: none;
           border: 1px solid #eaeaea;
@@ -168,6 +168,11 @@ export default function Home() {
             width: 100%;
             flex-direction: column;
           }
+        }
+
+        img {
+          width: 150px;
+          height: auto;
         }
       `}</style>
 
