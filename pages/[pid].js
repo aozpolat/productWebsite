@@ -1,27 +1,30 @@
-import {getProductByID} from '../elements/api'
+import {getProductByID} from '../formElements/api'
+import Layout from '../components/layout'
 
 
-const Post = ({product}) => {
+const Post = ({product, cart}) => {
  return ( 
+    <Layout cart = {cart}>
     <div className="detail">
-         <img src={product.imageUrl} alt=""></img>
+        <img src={product.imageUrl} alt=""></img>
         <h4> {product.name}</h4> 
         
         <style jsx>{`
             .detail {
                 margin: 50px;
-                text-align: center;
+                display: flex;
+                align-items: center;
+                justify-content: center;
                 font-family: 'Nunito', sans-serif;
             }
         `}</style>
     </div>
+    </Layout>
   )
 }
 
 export const getServerSideProps = async ({params}) => {
-    let product;
-    const res = await getProductByID(params.pid-1);
-    product = res;
+    const product = await getProductByID(params.pid-1); 
     return {
        props: { product }
     }

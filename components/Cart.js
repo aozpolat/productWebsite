@@ -3,7 +3,6 @@
 const Cart = ({setIsHidden , isHidden}) => {
 
     const clickCart = () => {
-        console.log("clicked")
         isHidden === "show" ? setIsHidden("hidden") : setIsHidden("show")
     }
 
@@ -12,11 +11,10 @@ const Cart = ({setIsHidden , isHidden}) => {
         <button  onClick={clickCart}>Cart</button>
         <style jsx>{`
             button {
-                background-color: #9ad8d7;
-                margin-right: 15px;
+                background-color: #e8ebeb;
+                margin-right: 25px;
                 padding: 0.4rem 1rem;
-                border-color:#9ad8d7;
-                border-radius: 6px;
+                border-radius: 3px;
             }
         
         
