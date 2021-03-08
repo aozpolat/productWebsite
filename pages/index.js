@@ -2,41 +2,56 @@ import Head from 'next/head'
 import Link from 'next/link'
 import {useState, useEffect} from 'react'
 import {getProducts} from '../elements/api'
+import Cart from '../components/Cart'
 
 export default function Home() {
   const [products, setProducts] = useState([]);
+  const [isHidden, setIsHidden] = useState('show');
 
   useEffect(() => {
     getProducts().then(res => setProducts(res));
   }, []);
+ 
   
   return (
     <div className="container">
-      <Head>
-        
+      <Head>       
         <title>Test</title>
         <link rel="icon" href="/favicon.ico" />
         <link rel="preconnect" href="https://fonts.gstatic.com"/>
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap" rel="stylesheet"/>     
       </Head>
 
-      <main>
-        <h1 className="title">
-          Welcome 
-        </h1>
-        <div className="grid">
-            {products.map( (product, index) => (
-              <Link href={`/${index + 1}`} key={index + 1} > 
-                <a className="card"> 
-                <img src={product.imageUrl} alt=""></img>
-                <h3>{product.name} </h3>
-                <p>Click for more info</p>
-                </a>       
-              </Link>
-            ))}
-        </div>
-      </main>
+     
+      <header >
+        <Cart setIsHidden = {setIsHidden} isHidden = {isHidden}/>
+      </header>
 
+      <div className="content-container">
+        <div className={isHidden}>
+          <p>test</p>
+          <p>test</p>
+          <p>test</p>
+          <p>test</p>
+        </div>
+
+        <main>
+          <h1 className="title">
+            Welcome 
+          </h1>
+          <div className="grid">
+              {products.map( (product, index) => (
+                <Link href={`/${index + 1}`} key={index + 1} > 
+                  <a className="card"> 
+                  <img src={product.imageUrl} alt=""></img>
+                  <h3>{product.name} </h3>
+                  <p>Click for more info</p>
+                  </a>       
+                </Link>
+              ))}
+          </div>
+        </main>
+      </div>
       <footer>     
       </footer>
 
@@ -51,7 +66,7 @@ export default function Home() {
         }
 
         main {
-          padding: 5rem 0;
+          padding: 1rem 0;
           flex: 1;
           display: flex;
           flex-direction: column;
@@ -174,6 +189,33 @@ export default function Home() {
           width: 150px;
           height: auto;
         }
+
+        header {
+          width: 100%;
+          height: 60px;
+          border-bottom: 1px solid #eaeaea;
+          display: flex;
+          justify-content: flex-end;
+          align-items: flex-end;
+        }
+
+        .show {
+          height: fit-content;
+          width: 350px;
+          position: absolute;
+          right: 0;
+          border-radius: 6px;
+          border: 2px solid #9ad8d7;
+        }
+
+        .hidden {
+          display:none;
+       }
+       
+       .content-container {
+         width: 100%;
+         position: relative;
+       }
       `}</style>
 
       <style jsx global>{`
