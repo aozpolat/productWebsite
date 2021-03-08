@@ -5,10 +5,14 @@ export default function App({ Component, pageProps }) {
     const [cart, setCart] = useState([]);
 
   useEffect(() => {
-    if(cart.length !== 0) 
-       localStorage.setItem('cart', JSON.stringify(cart))
-    
+       if(cart.length !== 0)
+            localStorage.setItem('cart', JSON.stringify(cart))
 
+        else if (localStorage.getItem('cart') === null)  {
+                      
+                localStorage.setItem('cart', JSON.stringify(cart))
+        }   
+    
     return () => {
       const data = localStorage.getItem('cart');
       if(data  !== JSON.stringify(cart)) {
@@ -19,7 +23,7 @@ export default function App({ Component, pageProps }) {
   }, [cart]);
 
   useEffect(() => {
-    setCart(JSON.parse(localStorage.getItem('cart')))
+        setCart(JSON.parse(localStorage.getItem('cart')))
   }, []);
 
     return <Component {...pageProps} cart={cart} setCart={setCart}  />
