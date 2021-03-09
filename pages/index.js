@@ -15,19 +15,13 @@ export async function getStaticProps() {
 }
 
 export default function Home({products}) {
-  const {cart, setCart} = useList();
-  
-  const addToCart = (input) => {
-    setCart([
-      ...cart, input
-    ])
-  }
+  const {cart, addToCart} = useList();
 
   return (
     <Layout home cart={cart}>
       <div className="container">
         <Head>       
-          <title>Test</title>
+          <title>Products</title>
           <link rel="icon" href="/favicon.ico" />
           <link rel="preconnect" href="https://fonts.gstatic.com"/>
           <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap" rel="stylesheet"/>     
@@ -47,7 +41,7 @@ export default function Home({products}) {
                           <h5>Click for more info</h5>
                         </a>
                       </Link>
-                      <button onClick={() => addToCart(product.name)}>Add to Cart</button>
+                      <button onClick={() => addToCart({name: product.name, price: product.price})}>Add to Cart</button>
                     </div>       
                  
                 ))}

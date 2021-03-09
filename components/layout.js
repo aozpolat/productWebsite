@@ -3,12 +3,15 @@ import styles from '../styles/layout.module.css'
 import Link from 'next/link'
 import Cart from './Cart'
 import {useState} from 'react'
+import {useList} from '../contexts/cartContext'
 
 const name = 'Your Name'
 export const siteTitle = 'Next.js Sample Website'
 
-export default function Layout({ children, home, cart}) {
-    const [isHidden, setIsHidden] = useState('hidden');
+export default function Layout({ children, home}) {
+  const {cart} = useList();
+  const [isHidden, setIsHidden] = useState('hidden');
+
   return (
     <>
       <Head>
@@ -20,9 +23,11 @@ export default function Layout({ children, home, cart}) {
       </header>
 
       <div className={styles[isHidden]}>
+          <div className={styles.cartItems}>
             {cart.map( (cartItem, index) => (
-                <h6 key = {index}>{cartItem}</h6>
+                <h6 key = {index}>{cartItem.name}</h6>
             ))}
+          </div>  
       </div>
 
       <main>{children}</main>

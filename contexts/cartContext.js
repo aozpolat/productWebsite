@@ -6,6 +6,14 @@ export const useList = () => useContext(Context);
 export default function CartContext(props) {
     const [cart, setCart] = useState([]);
 
+    const addToCart = (input) => {
+        const {name, price} = input;
+        setCart([
+          ...cart, 
+          {name, price}
+        ]);
+      };
+
     useEffect(() => {
          if(cart.length !== 0)
               localStorage.setItem('cart', JSON.stringify(cart))
@@ -32,7 +40,7 @@ export default function CartContext(props) {
         <Context.Provider
           value={{
             cart: cart,
-            setCart: setCart
+            addToCart: addToCart
           }}
         >
           {props.children}
