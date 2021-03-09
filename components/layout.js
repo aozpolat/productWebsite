@@ -12,6 +12,11 @@ export default function Layout({ children, home}) {
   const {cart} = useList();
   const [isHidden, setIsHidden] = useState('hidden');
 
+  const total = cart.reduce( (acc , currentItem) => {
+      const cost = currentItem.price * currentItem.quantity;
+      return acc + cost;
+  }, 0)
+
   return (
     <>
       <Head>
@@ -25,9 +30,10 @@ export default function Layout({ children, home}) {
       <div className={styles[isHidden]}>
           <div className={styles.cartItems}>
             {cart.map( (cartItem, index) => (
-                <h6 key = {index}>{cartItem.name}</h6>
+                <h6 key = {index}>{cartItem.name} - {cartItem.quantity}</h6>
             ))}
-          </div>  
+          </div >  
+          <h5 className={styles.cartTotal}>Total: {total} $</h5>
       </div>
 
       <main>{children}</main>
