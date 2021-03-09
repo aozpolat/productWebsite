@@ -1,8 +1,11 @@
 import {getProductByID} from '../formElements/api'
 import Layout from '../components/layout'
+import {useList} from '../contexts/cartContext'
 
 
-const Post = ({product, cart}) => {
+const Post = ({product}) => {
+ const {cart} = useList();
+ 
  return ( 
     <Layout cart = {cart}>
     <div className="detail">

@@ -1,30 +1,7 @@
 import '../styles/global.css';
-import {useState, useEffect} from 'react'
+import CartContext from '../contexts/cartContext'
 
 export default function App({ Component, pageProps }) {
-    const [cart, setCart] = useState([]);
 
-  useEffect(() => {
-       if(cart.length !== 0)
-            localStorage.setItem('cart', JSON.stringify(cart))
-
-        else if (localStorage.getItem('cart') === null)  {
-                      
-                localStorage.setItem('cart', JSON.stringify(cart))
-        }   
-    
-    return () => {
-      const data = localStorage.getItem('cart');
-      if(data  !== JSON.stringify(cart)) {
-        setCart(JSON.parse(data));
-      }
-    }
-
-  }, [cart]);
-
-  useEffect(() => {
-        setCart(JSON.parse(localStorage.getItem('cart')))
-  }, []);
-
-    return <Component {...pageProps} cart={cart} setCart={setCart}  />
+    return <CartContext> <Component {...pageProps}  /> </CartContext>
 }

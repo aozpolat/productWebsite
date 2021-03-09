@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import Image from 'next/image'
 import styles from '../styles/layout.module.css'
 import Link from 'next/link'
 import Cart from './Cart'

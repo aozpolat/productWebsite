@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import {getProducts} from '../formElements/api'
 import Layout from '../components/layout'
-
+import {useList} from '../contexts/cartContext'
 
 
 export async function getStaticProps() {
@@ -14,9 +14,9 @@ export async function getStaticProps() {
   }
 }
 
-export default function Home({products , setCart , cart}) {
+export default function Home({products}) {
+  const {cart, setCart} = useList();
   
-
   const addToCart = (input) => {
     setCart([
       ...cart, input
