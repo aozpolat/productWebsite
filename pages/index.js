@@ -41,7 +41,7 @@ export default function Home({products}) {
                           <h5>Click for more info</h5>
                         </a>
                       </Link>
-                      <button onClick={() => addToCart({pid: product.pid, name: product.name, price: product.price})}>Add to Cart</button>
+                      <button onClick={() => addToCart({pid: product.pid, name: product.name, price: product.price})} className="addToCart">Add to Cart</button>
                     </div>       
                  
                 ))}
@@ -165,8 +165,15 @@ export default function Home({products}) {
             margin: auto;
           }
 
-          button {
+          .addToCart {
             margin: auto;
+            padding: 0.4rem;
+            border-radius: 4px;
+            background: ivory
+          }
+
+          .addToCart:hover {
+            background: #eeeecb
           }
         `}</style>
       </div>

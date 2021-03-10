@@ -18,7 +18,7 @@ const Cart = ({setIsHidden , isHidden}) => {
         <button  onClick={clickCart}><div className="icon"> <FontAwesomeIcon icon={faShoppingCart} size="lg"/> </div>  <div className="total">{`$${total}`}</div></button>
         <style jsx>{`
             button {
-                background-color: #e8ebeb;
+                background-color: #efefc2;
                 margin-right: 5rem;
                 padding: 0 1rem 0 0;
                 border-radius: 3px;
@@ -26,7 +26,7 @@ const Cart = ({setIsHidden , isHidden}) => {
             }
 
             button:hover {
-                background-color: #c7cbcb;
+                background-color: #e3e35e;
             }
             .icon {
                 border-right: 2px solid black;
