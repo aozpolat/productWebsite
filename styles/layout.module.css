@@ -28,6 +28,7 @@
     right: 0;
     border-radius: 6px;
     border: 1px solid #e8ebeb;
+    background: ghostwhite;
   }
 
   .cartItems {
@@ -36,6 +37,7 @@
 
   .cartTotal {
     margin-left: 1rem;
+    border-top: 1px solid gray;
   }
 
 

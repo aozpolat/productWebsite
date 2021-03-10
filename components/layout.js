@@ -5,17 +5,14 @@ import Cart from './Cart'
 import {useState} from 'react'
 import {useList} from '../contexts/cartContext'
 
+
 const name = 'Your Name'
 export const siteTitle = 'Next.js Sample Website'
 
 export default function Layout({ children, home}) {
-  const {cart} = useList();
+  const {cart, total} = useList();
   const [isHidden, setIsHidden] = useState('hidden');
 
-  const total = cart.reduce( (acc , currentItem) => {
-      const cost = currentItem.price * currentItem.quantity;
-      return acc + cost;
-  }, 0)
 
   return (
     <>
@@ -30,12 +27,12 @@ export default function Layout({ children, home}) {
       <div className={styles[isHidden]}>
           <div className={styles.cartItems}>
             {cart.map( (cartItem, index) => (
-                <h6 key = {index}>{cartItem.name} - {cartItem.quantity}</h6>
+                <h5 key = {index}>{`${cartItem.quantity}x`}  {cartItem.name}:    ${cartItem.price * cartItem.quantity}</h5>
             ))}
           </div >  
-          <h5 className={styles.cartTotal}>Total: {total} $</h5>
+          <h4 className={styles.cartTotal}>Total: ${total} </h4>
       </div>
-
+             
       <main>{children}</main>
       {!home && (
         <div className={styles.backToHome}>

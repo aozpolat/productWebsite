@@ -27,6 +27,11 @@ export default function CartContext(props) {
         }    
       };
 
+      const total = cart.reduce( (acc , currentItem) => {
+        const cost = currentItem.price * currentItem.quantity;
+        return acc + cost;
+      }, 0)
+
     useEffect(() => {
          if(cart.length !== 0)
               localStorage.setItem('cart', JSON.stringify(cart))
@@ -63,7 +68,8 @@ export default function CartContext(props) {
         <Context.Provider
           value={{
             cart: cart,
-            addToCart: addToCart
+            addToCart: addToCart,
+            total: total
           }}
         >
           {props.children}
