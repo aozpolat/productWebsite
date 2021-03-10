@@ -7,12 +7,12 @@ export default function CartContext(props) {
     const [cart, setCart] = useState([]);
 
     const addToCart = (input) => {
-        const {name, price} = input;
+        const {pid, name, price} = input;
         const quantity = isExists(name) + 1;
         if( quantity == 1)     
             setCart([
             ...cart, 
-            {name, price, quantity}
+            {pid, name, price, quantity}
             ]);
         else {
             const newCart = cart.map( (cartItem) => {
