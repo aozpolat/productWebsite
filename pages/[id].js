@@ -8,20 +8,19 @@ const Post = ({product}) => {
  
  return ( 
     <Layout cart = {cart}>
-    <div className="detail">
-        <img src={product.imageUrl} alt=""></img>
-        <h4> {product.name}</h4> 
-        
-        <style jsx>{`
-            .detail {
-                margin: 50px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-family: 'Nunito', sans-serif;
-            }
-        `}</style>
-    </div>
+        <div className="detail">
+            <img src={product.imageUrl} alt=""></img>
+            <h4> {product.name}</h4>     
+            <style jsx>{`
+                .detail {
+                    margin: 50px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-family: 'Nunito', sans-serif;
+                }
+            `}</style>
+        </div>
     </Layout>
   )
 }

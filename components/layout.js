@@ -4,12 +4,13 @@ import Link from 'next/link'
 import Cart from './Cart'
 import {useState} from 'react'
 import {useList} from '../contexts/cartContext'
+import PaymentButton from './paymentButton'
 
 
 const name = 'Your Name'
 export const siteTitle = 'Next.js Sample Website'
 
-export default function Layout({ children, home}) {
+export default function Layout({ children, home, payment}) {
   const {cart, total} = useList();
   const [isHidden, setIsHidden] = useState('hidden');
 
@@ -29,11 +30,16 @@ export default function Layout({ children, home}) {
             {cart.map( (cartItem, index) => (
                 <h5 key = {index}>{`${cartItem.quantity}x`}  {cartItem.name}:    ${cartItem.price * cartItem.quantity}</h5>
             ))}
-          </div >  
-          <h4 className={styles.cartTotal}>Total: ${total} </h4>
-      </div>
-             
+          </div >
+          <div className={styles.totalAndBuy}  > 
+            <h4 className={styles.cartTotal}>Total: ${total} </h4>
+            {!payment && (
+                <PaymentButton  />
+            )}
+          </div>
+      </div>          
       <main>{children}</main>
+
       {!home && (
         <div className={styles.backToHome}>
           <Link href="/">
