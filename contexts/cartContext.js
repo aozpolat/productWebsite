@@ -3,8 +3,10 @@ import {useState, createContext, useContext, useEffect} from 'react';
 export const Context = createContext();
 export const useList = () => useContext(Context);
 
+
 export default function CartContext(props) {
     const [cart, setCart] = useState([]);
+    const [URL, setURL] = useState("");
 
     const addToCart = (input) => {
         const {pid, name, price} = input;
@@ -27,7 +29,25 @@ export default function CartContext(props) {
         }    
       };
 
-      const total = cart.reduce( (acc , currentItem) => {
+      const clearCart = () => {
+        localStorage.removeItem("cart");
+        setCart([]);
+      };
+
+      const createURL = () => {
+        let url = "https://form.jotform.com/210521962653049?";
+        cart.forEach( (element, index) => {
+          url += `myProducts[special_${element.pid}][item_0]=${element.quantity}&`
+           if (element.quantity === 1) {
+            url += `myProducts[][id]=${element.pid}&`
+           }
+        });
+        setURL(url);
+
+    }
+    
+
+    const total = cart.reduce( (acc , currentItem) => {
         const cost = currentItem.price * currentItem.quantity;
         return acc + cost;
       }, 0)
@@ -43,7 +63,7 @@ export default function CartContext(props) {
       
       return () => {
         const data = localStorage.getItem('cart');
-        if(data  !== JSON.stringify(cart)) {
+        if(data && data  !== JSON.stringify(cart)) {
           setCart(JSON.parse(data));
         }
       }
@@ -61,15 +81,18 @@ export default function CartContext(props) {
                 return cartItem.quantity;
             }
         }
-
         return 0;
     }
+
     return (
         <Context.Provider
           value={{
             cart: cart,
             addToCart: addToCart,
-            total: total
+            total: total,
+            createURL: createURL,
+            URL:URL,
+            clearCart: clearCart
           }}
         >
           {props.children}

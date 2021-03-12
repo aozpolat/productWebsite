@@ -49,6 +49,22 @@
     display: flex;
   }
 
+  .clearCart {
+    margin: 1.5rem 0 1rem 1rem;
+    padding: 0.4rem 0.2rem;
+    background: #d67070;
+    border-radius: 4px;
+    cursor: pointer;
+    
+  }
+
+  .goToPayment {
+    margin: 1.5rem 0 1rem 3rem;
+    padding: 0.4rem 0.2rem;
+    background: #97c697;
+    border-radius: 4px;
+    cursor: pointer;
+}
 
 
 

@@ -4,14 +4,11 @@ import Link from 'next/link'
 import Cart from './Cart'
 import {useState} from 'react'
 import {useList} from '../contexts/cartContext'
-import PaymentButton from './paymentButton'
 
 
-const name = 'Your Name'
-export const siteTitle = 'Next.js Sample Website'
 
 export default function Layout({ children, home, payment}) {
-  const {cart, total} = useList();
+  const {cart, total, clearCart, createURL} = useList();
   const [isHidden, setIsHidden] = useState('hidden');
 
 
@@ -31,12 +28,26 @@ export default function Layout({ children, home, payment}) {
                 <h5 key = {index}>{`${cartItem.quantity}x`}  {cartItem.name}:    ${cartItem.price * cartItem.quantity}</h5>
             ))}
           </div >
-          <div className={styles.totalAndBuy}  > 
+          <div > 
             <h4 className={styles.cartTotal}>Total: ${total} </h4>
-            {!payment && (
-                <PaymentButton  />
-            )}
+            
           </div>
+          <div className={styles.totalAndBuy}>
+            {!payment && total != 0 && (
+                <button onClick={clearCart} className={styles.clearCart}>Clear the cart</button>
+            )}
+
+            {!payment && total != 0 && (
+                <Link href="/paymentPage">
+                  <a>
+                    <button onClick={createURL} className={styles.goToPayment}>Go to payment</button>
+                  </a>              
+                </Link>
+            )}
+
+          </div>
+            
+            
       </div>          
       <main>{children}</main>
 
@@ -47,7 +58,7 @@ export default function Layout({ children, home, payment}) {
           </Link>
         </div>
       )}
-      <footer className={styles.footer}>     
+      <footer className={styles.footer}>  
       </footer>
 
     </>

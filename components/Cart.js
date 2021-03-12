@@ -23,6 +23,7 @@ const Cart = ({setIsHidden , isHidden}) => {
                 padding: 0 1rem 0 0;
                 border-radius: 3px;
                 display: flex;
+                cursor: pointer;
             }
 
             button:hover {

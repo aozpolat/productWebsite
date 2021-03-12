@@ -169,7 +169,8 @@ export default function Home({products}) {
             margin: auto;
             padding: 0.4rem;
             border-radius: 4px;
-            background: ivory
+            background: ivory;
+            cursor: pointer;
           }
 
           .addToCart:hover {
