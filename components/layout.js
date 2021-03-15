@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Image from 'next/image'
 import styles from '../styles/layout.module.css'
 import Link from 'next/link'
 import Cart from './Cart'
@@ -19,6 +20,13 @@ export default function Layout({ children, home, payment}) {
       </Head>
 
       <header className={styles.header}>
+        <Link href="/">  
+          <a  className={styles.logo}><Image src="/logo.png"
+        alt=""
+        width={95}
+        height={85}>
+        </Image></a>
+        </Link>  
         <Cart setIsHidden = {setIsHidden} isHidden = {isHidden}/>
       </header>
 
@@ -51,13 +59,7 @@ export default function Layout({ children, home, payment}) {
       </div>          
       <main>{children}</main>
 
-      {!home && (
-        <div className={styles.backToHome}>
-          <Link href="/">
-            <a>← Back to mainpage</a>
-          </Link>
-        </div>
-      )}
+  
       <footer className={styles.footer}>  
       </footer>
 

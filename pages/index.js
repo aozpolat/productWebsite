@@ -37,11 +37,14 @@ export default function Home({products}) {
                       <Link href={`/${index + 1}`}  > 
                         <a> 
                           <img src={product.imageUrl} alt=""></img>
-                          <h3>{product.name} </h3>
+                          <h3>{product.name}    </h3>
                           <h5>Click for more info</h5>
                         </a>
                       </Link>
-                      <button onClick={() => addToCart({pid: product.pid, name: product.name, price: product.price})} className="addToCart">Add to Cart</button>
+                      <div className="test">
+                        <button onClick={() => addToCart({pid: product.pid, name: product.name, price: product.price})} className="addToCart">Add to Cart</button>
+                        <h3>${product.price}</h3>
+                      </div>
                     </div>       
                  
                 ))}
@@ -166,7 +169,7 @@ export default function Home({products}) {
           }
 
           .addToCart {
-            margin: auto;
+            margin: 0.5rem 0;
             padding: 0.4rem;
             border-radius: 4px;
             background: ivory;
@@ -175,6 +178,11 @@ export default function Home({products}) {
 
           .addToCart:hover {
             background: #eeeecb
+          }
+
+          .test {
+            display: flex;
+            justify-content: space-between;
           }
         `}</style>
       </div>
