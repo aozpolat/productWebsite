@@ -36,12 +36,16 @@ export default function CartContext(props) {
 
       const createURL = () => {
         let url = "https://form.jotform.com/210521962653049?";
+        let urlForOneProduct = "myProducts[][id]="
         cart.forEach( (element, index) => {
-          url += `myProducts[special_${element.pid}][item_0]=${element.quantity}&`
-           if (element.quantity === 1) {
-            url += `myProducts[][id]=${element.pid}&`
-           }
+          if (element.quantity === 1) {
+            urlForOneProduct += `${element.pid},`
+          }
+          else {
+            url += `myProducts[special_${element.pid}][item_0]=${element.quantity}&`
+          }
         });
+        url += urlForOneProduct;
         setURL(url);
 
     }

@@ -4,6 +4,7 @@ import {useList} from '../contexts/cartContext'
 import Layout from '../components/layout';
 export default function CreditCart(){
     const {URL} = useList();
+    console.log(URL);
     return(
             <Layout payment>    
                  <iframe src={`${URL}`}></iframe>

@@ -16,9 +16,8 @@ export async function getStaticProps() {
 }
 
 export default function Home({products}) {
-    // const [currentProducts, setCurrentProducts] = useState([]);
     const [currentPage, setCurrenPage] = useState(1);
-    const [productsPerPage, setProductsPerPage] = useState(6);
+    const [productsPerPage] = useState(6);
 
     const indexOfLastProduct = currentPage * productsPerPage;
     const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
