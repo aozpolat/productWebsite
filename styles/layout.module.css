@@ -29,7 +29,7 @@
   .show {
     height: fit-content;
     width: 350px;
-    position: fixed;
+    position: absolute;
     right: 0;
     border-radius: 6px;
     border: 1px solid #e8ebeb;

@@ -1,10 +1,9 @@
 import Head from 'next/head'
-import Link from 'next/link'
 import {getProducts} from '../formElements/api'
 import Layout from '../components/layout'
-import {useList} from '../contexts/cartContext'
 import { useState } from 'react'
 import Products from '../components/Products'
+import Pagination from '../components/Pagination'
 
 
 export async function getStaticProps() {
@@ -17,14 +16,20 @@ export async function getStaticProps() {
 }
 
 export default function Home({products}) {
-    const [currentProducts, setCurrentProducts] = useState([]);
+    // const [currentProducts, setCurrentProducts] = useState([]);
     const [currentPage, setCurrenPage] = useState(1);
-    const [productsPerPage, setProductsPerPage] = useState(10);
+    const [productsPerPage, setProductsPerPage] = useState(6);
 
-    const {cart} = useList();
+    const indexOfLastProduct = currentPage * productsPerPage;
+    const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+    const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+    const pageNumber = Math.ceil(products.length / productsPerPage);
 
+    const paginate = (number) => {
+        setCurrenPage(number);
+    }
     return (
-        <Layout home cart={cart}>
+        <Layout home >
             <div className="container">
             <Head>       
                 <title>Products</title>
@@ -36,8 +41,8 @@ export default function Home({products}) {
                 <h1 className="title">
                     Welcome 
                 </h1>  
-                <Products products= {products}/>
-                
+                <Products products = {currentProducts}/>
+                <Pagination  pageNumber = {pageNumber} paginate = {paginate} currentPage = {currentPage} />               
             </main>
             
 

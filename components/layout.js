@@ -8,7 +8,7 @@ import {useList} from '../contexts/cartContext'
 
 
 
-export default function Layout({ children, home, payment}) {
+export default function Layout({ children, payment}) {
   const {cart, total, clearCart, createURL} = useList();
   const [isHidden, setIsHidden] = useState('hidden');
 
