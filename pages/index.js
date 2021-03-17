@@ -1,31 +1,26 @@
 import Head from 'next/head'
-import {getProducts} from '../formElements/api'
+import {getProductsForPage} from '../formElements/api'
 import Layout from '../components/layout'
-import { useState } from 'react'
 import Products from '../components/Products'
 import Pagination from '../components/Pagination'
+import { useRouter } from 'next/router'
 
-
-export async function getStaticProps() {
-  const products = await getProducts();
-  return {
-    props: {
-      products
+export async function getServerSideProps({ query: { page = 1, category} }) {
+    const products = await getProductsForPage(page);
+    return {
+        props: {
+            currentPage:page,
+            products,
+        }
     }
-  }
 }
 
-export default function Home({products}) {
-    const [currentPage, setCurrenPage] = useState(1);
-    const [productsPerPage] = useState(6);
-
-    const indexOfLastProduct = currentPage * productsPerPage;
-    const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-    const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
-    const pageNumber = Math.ceil(products.length / productsPerPage);
+export default function Home({products, currentPage}) {
+    const router = useRouter()
+    const pageNumber = Math.ceil(products.length / products.productsPerPage);
 
     const paginate = (number) => {
-        setCurrenPage(number);
+        router.push(`/?page=${number}`);
     }
     return (
         <Layout home >
@@ -36,11 +31,41 @@ export default function Home({products}) {
                 <link rel="preconnect" href="https://fonts.gstatic.com"/>
                 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap" rel="stylesheet"/>     
             </Head>
+
+            <div className="filter">
+                <div className="headline">
+                    <h3>Categories</h3>
+                </div>
+                
+                <div className="categories">
+                    <div className="option">
+                        <input type='checkbox' ></input>
+                        <label> Shoes</label><br></br>
+                    </div>
+                    <div className="option">
+                        <input type='checkbox' ></input>
+                        <label> Dresses</label><br></br>
+                    </div>
+                    <div className="option">
+                        <input type='checkbox' ></input>
+                        <label> Trousers</label><br></br>
+                    </div>
+                    <div className="option">
+                        <input type='checkbox' ></input>
+                        <label> Jackets</label><br></br>
+                    </div>
+                    <div className="option">
+                        <input type='checkbox' ></input>
+                        <label> Shirts</label><br></br>
+                    </div>
+                    
+                </div>
+            </div>
             <main>
                 <h1 className="title">
                     Welcome 
                 </h1>  
-                <Products products = {currentProducts}/>
+                <Products products = {products.currentProducts}/>
                 <Pagination  pageNumber = {pageNumber} paginate = {paginate} currentPage = {currentPage} />               
             </main>
             
@@ -55,6 +80,7 @@ export default function Home({products}) {
 
                 main {
                 padding: 1rem;
+                margin-right: 5rem;
                 flex: 1;
                 display: flex;
                 flex-direction: column;
@@ -70,7 +96,7 @@ export default function Home({products}) {
                 }
 
                 .title {
-                text-align: center;
+                 text-align: center;
                 }
 
                 @media (max-width: 600px) {
@@ -78,6 +104,32 @@ export default function Home({products}) {
                     width: 100%;
                     flex-direction: column;
                 }
+                }
+
+                .filter {
+                    width: 11rem;
+                    margin: 7rem 0 0 5rem;
+                    border: 1px solid #e5e5e5;
+                    border-radius: 5px;
+                }
+
+                .headline {
+                    
+                    border-bottom: 1px solid;
+                }
+
+                .headline h3 {
+                    margin: 0.7em;
+                }
+
+                .categories {
+                    display:flex;
+                    flex-direction: column;s
+                    max-width: 200px;
+                }
+
+                .option {
+                    margin: 0.3rem 1rem;
                 }
 
             `}</style>

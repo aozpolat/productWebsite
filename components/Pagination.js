@@ -1,9 +1,10 @@
 
 
 export default function Pagination({pageNumber, paginate , currentPage}) {
+    
     return ( 
             <div className='container'>
-                {[...Array(pageNumber)].map((_, number) =>  currentPage === number + 1 ? 
+                {[...Array(pageNumber)].map((_, number) => currentPage == number + 1 ? 
                 (
                         <a onClick= {() => paginate(number + 1)} key = {number} className='currentPage'>
                             {number + 1}
@@ -14,6 +15,7 @@ export default function Pagination({pageNumber, paginate , currentPage}) {
                         {number + 1}
                     </a>  
                 )
+                
                 )}
                 
             

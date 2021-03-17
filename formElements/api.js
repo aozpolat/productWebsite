@@ -15,3 +15,13 @@ export const getProductByID = async (id) => {
   const res = await getProducts();
   return res[id]
 }
+
+export const getProductsForPage = async (page) => {
+  const productsPerPage = 6;
+  const products = await getProducts();
+  const indexOfLastProduct = page * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+
+  return {currentProducts, productsPerPage, length: products.length};
+}
