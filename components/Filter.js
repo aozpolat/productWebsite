@@ -1,6 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
 import { useRouter } from "next/router";
 export default function Filter({ filter, removeCategoryFilter }) {
   const router = useRouter();
@@ -34,7 +33,14 @@ export default function Filter({ filter, removeCategoryFilter }) {
         <div className="option">
           <input
             type="checkbox"
-            onChange={() => filter("dresses")}
+            onChange={() => {
+              if (
+                router.query.category &&
+                router.query.category.includes("dresses")
+              )
+                removeCategoryFilter("dresses");
+              else filter("dresses");
+            }}
             checked={
               router.query.category
                 ? router.query.category.includes("dresses")
@@ -45,17 +51,62 @@ export default function Filter({ filter, removeCategoryFilter }) {
           <br></br>
         </div>
         <div className="option">
-          <input type="checkbox"></input>
+          <input
+            type="checkbox"
+            onChange={() => {
+              if (
+                router.query.category &&
+                router.query.category.includes("trousers")
+              )
+                removeCategoryFilter("trousers");
+              else filter("trousers");
+            }}
+            checked={
+              router.query.category
+                ? router.query.category.includes("trousers")
+                : false
+            }
+          ></input>
           <label> Trousers</label>
           <br></br>
         </div>
         <div className="option">
-          <input type="checkbox"></input>
+          <input
+            type="checkbox"
+            onChange={() => {
+              if (
+                router.query.category &&
+                router.query.category.includes("jackets")
+              )
+                removeCategoryFilter("jackets");
+              else filter("jackets");
+            }}
+            checked={
+              router.query.category
+                ? router.query.category.includes("jackets")
+                : false
+            }
+          ></input>
           <label> Jackets</label>
           <br></br>
         </div>
         <div className="option">
-          <input type="checkbox"></input>
+          <input
+            type="checkbox"
+            onChange={() => {
+              if (
+                router.query.category &&
+                router.query.category.includes("shirts")
+              )
+                removeCategoryFilter("shirts");
+              else filter("shirts");
+            }}
+            checked={
+              router.query.category
+                ? router.query.category.includes("shirts")
+                : false
+            }
+          ></input>
           <label> Shirts</label>
           <br></br>
         </div>
@@ -80,6 +131,8 @@ export default function Filter({ filter, removeCategoryFilter }) {
 
       <style jsx>{`
         .filter {
+          position: sticky;
+          top: 20px;
           max-height: 23rem;
           width: 12rem;
           margin: 7rem 0 0 4rem;

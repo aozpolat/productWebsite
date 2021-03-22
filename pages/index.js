@@ -9,8 +9,8 @@ import Filter from "../components/Filter";
 export async function getServerSideProps({
   query: { page = 1, category = "all" },
 }) {
-  const products = await getProductsForPage(page);
-  console.log(category);
+  const products = await getProductsForPage(page, category);
+  // console.log(products);
   return {
     props: {
       currentPage: page,
@@ -23,8 +23,12 @@ export default function Home({ products, currentPage }) {
   const router = useRouter();
   const pageNumber = Math.ceil(products.length / products.productsPerPage);
 
-  const paginate = (number) => {
-    router.push(`/?page=${number}`);
+  const paginate = (page) => {
+    router.push({
+      pathname: "/",
+      query: { ...router.query, page },
+    });
+    // router.push(`/?page=${number}`);
   };
   const removeCategoryFilter = (category) => {
     if (!Array.isArray(router.query.category))
@@ -41,13 +45,27 @@ export default function Home({ products, currentPage }) {
     }
   };
   const filter = (category) => {
-    const currentPath = router.asPath;
-    if (router.query.category)
-      router.push(`${currentPath}&category=${category}`);
-    else {
+    if (router.query.category) {
+      const currentCategories = router.query.category;
+      if (Array.isArray(currentCategories)) {
+        currentCategories.push(category);
+        router.push({
+          pathname: "/",
+          query: { ...router.query, category: currentCategories, page: 1 },
+        });
+      } else {
+        const categoryArr = [];
+        categoryArr.push(currentCategories);
+        categoryArr.push(category);
+        router.push({
+          pathname: "/",
+          query: { ...router.query, category: categoryArr, page: 1 },
+        });
+      }
+    } else {
       router.push({
         pathname: "/",
-        query: { ...router.query, category },
+        query: { ...router.query, category, page: 1 },
       });
     }
   };
@@ -89,7 +107,6 @@ export default function Home({ products, currentPage }) {
             flex: 1;
             display: flex;
             flex-direction: column;
-            align-items: center;
             justify-content: center;
           }
 
