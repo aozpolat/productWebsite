@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
 import { useRef } from "react";
 
@@ -25,6 +26,13 @@ export default function Filter({ filter, removeCategoryFilter }) {
     router.push({
       pathname: "/",
       query: { ...router.query, min: minPrice, max: maxPrice, page: 1 },
+    });
+  };
+
+  const test = () => {
+    router.push({
+      pathname: "/",
+      query: { ...router.query, min: [], max: [], page: 1 },
     });
   };
   return (
@@ -141,7 +149,12 @@ export default function Filter({ filter, removeCategoryFilter }) {
       <div className="price">
         <div className="priceBlock">
           <div className="priceSpan">
-            <input ref={minRef} type="number" placeholder="Min"></input>
+            <input
+              ref={minRef}
+              type="number"
+              placeholder="Min"
+              // value={router.query.min ? router.query.min : null}
+            ></input>
           </div>
           <div className="range"> - </div>
           <div className="priceSpan">
@@ -152,12 +165,25 @@ export default function Filter({ filter, removeCategoryFilter }) {
           <FontAwesomeIcon icon={faArrowRight} size="lg" />
         </button>
       </div>
+      {router.query.min ? (
+        <div className="priceFilter">
+          <div className="resetPriceFilter">
+            <FontAwesomeIcon icon={faTimes} size="xs" />
+          </div>
+          <div className="priceFilterInfo">
+            <div className="infoHeadline">Price</div>
+            <div>
+              {router.query.min}-{router.query.max}
+            </div>
+          </div>
+        </div>
+      ) : null}
 
       <style jsx>{`
         .filter {
           position: sticky;
           top: 20px;
-          max-height: 23rem;
+          height: fit-content;
           width: 12rem;
           margin: 7rem 0 0 4rem;
           border: 1px solid #e5e5e5;
@@ -231,6 +257,43 @@ export default function Filter({ filter, removeCategoryFilter }) {
         .price button:hover {
           background: #e9d486;
           cursor: pointer;
+        }
+
+        .priceFilter {
+          display: flex;
+          align-items: center;
+          background: #eee;
+          border-radius: 27px;
+          width: 50%;
+          margin: 0.6rem;
+          padding: 4px;
+          line-height: 1.5;
+        }
+
+        .resetPriceFilter {
+          margin-left: 0.1rem;
+          height: 25px;
+          width: 25px;
+          border-radius: 100%;
+          background: #fff;
+          text-align: center;
+          line-height: 21px;
+        }
+
+        .resetPriceFilter:hover {
+          background: #484848;
+          cursor: pointer;
+          color: white;
+        }
+
+        .priceFilterInfo {
+          font-size: 12px;
+          margin-left: 0.4rem;
+        }
+
+        .infoHeadline {
+          font-size: 11px;
+          color: #999;
         }
       `}</style>
     </div>

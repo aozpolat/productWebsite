@@ -70,62 +70,64 @@ export default function Home({ products, currentPage }) {
 
   return (
     <Layout home>
-      <div className="container">
-        <Head>
-          <title>Products</title>
-          <link rel="icon" href="/favicon.ico" />
-          <link rel="preconnect" href="https://fonts.gstatic.com" />
-          <link
-            href="https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap"
-            rel="stylesheet"
-          />
-        </Head>
+      <div>
+        <div className="container">
+          <Head>
+            <title>Products</title>
+            <link rel="icon" href="/favicon.ico" />
+            <link rel="preconnect" href="https://fonts.gstatic.com" />
+            <link
+              href="https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap"
+              rel="stylesheet"
+            />
+          </Head>
 
-        <Filter filter={filter} removeCategoryFilter={removeCategoryFilter} />
-        <main>
-          <h1 className="title">Welcome</h1>
-          <Products products={products.currentProducts} />
-          <Pagination
-            pageNumber={pageNumber}
-            paginate={paginate}
-            currentPage={currentPage}
-          />
-        </main>
+          <Filter filter={filter} removeCategoryFilter={removeCategoryFilter} />
+          <main>
+            <h1 className="title">Welcome</h1>
+            <Products products={products.currentProducts} />
+            <Pagination
+              pageNumber={pageNumber}
+              paginate={paginate}
+              currentPage={currentPage}
+            />
+          </main>
 
-        <style jsx>{`
-          .container {
-            min-height: 100vh;
-            padding: 0 0.5rem;
-            display: flex;
-            justify-content: center;
-          }
-
-          main {
-            padding: 1rem;
-            margin-right: 5rem;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-          }
-
-          .title {
-            margin: 0;
-            line-height: 1.15;
-            font-size: 4rem;
-          }
-
-          .title {
-            text-align: center;
-          }
-
-          @media (max-width: 600px) {
-            .grid {
-              width: 100%;
-              flex-direction: column;
+          <style jsx>{`
+            .container {
+              min-height: 100vh;
+              padding: 0 0.5rem;
+              display: flex;
+              justify-content: center;
             }
-          }
-        `}</style>
+
+            main {
+              padding: 1rem;
+              margin-right: 5rem;
+              flex: 1;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+            }
+
+            .title {
+              margin: 0;
+              line-height: 1.15;
+              font-size: 4rem;
+            }
+
+            .title {
+              text-align: center;
+            }
+
+            @media (max-width: 600px) {
+              .grid {
+                width: 100%;
+                flex-direction: column;
+              }
+            }
+          `}</style>
+        </div>
       </div>
     </Layout>
   );
