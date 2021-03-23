@@ -17,7 +17,7 @@ export default function Filter({ filter, removeCategoryFilter }) {
     }
 
     if (!maxRef.current.value) {
-      maxPrice = 0;
+      maxPrice = 9999;
     } else {
       maxPrice = Number(maxRef.current.value);
     }

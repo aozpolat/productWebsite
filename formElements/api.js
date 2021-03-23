@@ -47,27 +47,34 @@ export const getProductByID = async (id) => {
   return res[id];
 };
 
-export const getProductsForPage = async (page, category) => {
+export const getProductsForPage = async (page, category, min, max) => {
   const productsPerPage = 6;
   const products = await getProducts();
   const indexOfLastProduct = page * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  let currentProducts;
+  let currentProducts, filteredProducts;
+
   if (category != "all") {
-    const filteredProducts = products.filter((product) =>
-      category.includes(product.category)
+    filteredProducts = products.filter(
+      (product) =>
+        category.includes(product.category) &&
+        Number(product.price) >= Number(min) &&
+        Number(product.price) <= Number(max)
     );
-    currentProducts = filteredProducts.slice(
-      indexOfFirstProduct,
-      indexOfLastProduct
-    );
-    return {
-      currentProducts,
-      productsPerPage,
-      length: filteredProducts.length,
-    };
   } else {
-    currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
-    return { currentProducts, productsPerPage, length: products.length };
+    filteredProducts = products.filter(
+      (product) =>
+        Number(product.price) >= Number(min) &&
+        Number(product.price) <= Number(max)
+    );
   }
+  currentProducts = filteredProducts.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  );
+  return {
+    currentProducts,
+    productsPerPage,
+    length: filteredProducts.length,
+  };
 };
