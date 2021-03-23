@@ -1,8 +1,32 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
+import { useRef } from "react";
+
 export default function Filter({ filter, removeCategoryFilter }) {
   const router = useRouter();
+  const minRef = useRef();
+  const maxRef = useRef();
+
+  const filterPrice = () => {
+    let minPrice, maxPrice;
+    if (!minRef.current.value) {
+      minPrice = 0;
+    } else {
+      minPrice = Number(minRef.current.value);
+    }
+
+    if (!maxRef.current.value) {
+      maxPrice = 0;
+    } else {
+      maxPrice = Number(maxRef.current.value);
+    }
+
+    router.push({
+      pathname: "/",
+      query: { ...router.query, min: minPrice, max: maxPrice, page: 1 },
+    });
+  };
   return (
     <div className="filter">
       <div className="headline">
@@ -117,14 +141,14 @@ export default function Filter({ filter, removeCategoryFilter }) {
       <div className="price">
         <div className="priceBlock">
           <div className="priceSpan">
-            <input type="number" placeholder="Min"></input>
+            <input ref={minRef} type="number" placeholder="Min"></input>
           </div>
           <div className="range"> - </div>
           <div className="priceSpan">
-            <input type="number" placeholder="Max"></input>
+            <input ref={maxRef} type="number" placeholder="Max"></input>
           </div>
         </div>
-        <button>
+        <button onClick={filterPrice}>
           <FontAwesomeIcon icon={faArrowRight} size="lg" />
         </button>
       </div>

@@ -7,10 +7,9 @@ import { useRouter } from "next/router";
 import Filter from "../components/Filter";
 
 export async function getServerSideProps({
-  query: { page = 1, category = "all" },
+  query: { page = 1, category = "all", min = 0, max = 9999 },
 }) {
-  const products = await getProductsForPage(page, category);
-  // console.log(products);
+  const products = await getProductsForPage(page, category, min, max);
   return {
     props: {
       currentPage: page,
@@ -28,7 +27,6 @@ export default function Home({ products, currentPage }) {
       pathname: "/",
       query: { ...router.query, page },
     });
-    // router.push(`/?page=${number}`);
   };
   const removeCategoryFilter = (category) => {
     if (!Array.isArray(router.query.category))
@@ -69,6 +67,7 @@ export default function Home({ products, currentPage }) {
       });
     }
   };
+
   return (
     <Layout home>
       <div className="container">
