@@ -3,7 +3,6 @@ import { getProductsForPage } from "../formElements/api";
 import Layout from "../components/layout";
 import Products from "../components/Products";
 import Pagination from "../components/Pagination";
-import { useRouter } from "next/router";
 import Filter from "../components/Filter";
 
 export async function getServerSideProps({
@@ -19,54 +18,7 @@ export async function getServerSideProps({
 }
 
 export default function Home({ products, currentPage }) {
-  const router = useRouter();
   const pageNumber = Math.ceil(products.length / products.productsPerPage);
-
-  const paginate = (page) => {
-    router.push({
-      pathname: "/",
-      query: { ...router.query, page },
-    });
-  };
-  const removeCategoryFilter = (category) => {
-    if (!Array.isArray(router.query.category))
-      router.push({
-        pathname: "/",
-        query: { category: [] },
-      });
-    else {
-      const newArr = router.query.category.filter((item) => item !== category);
-      router.push({
-        pathname: "/",
-        query: { category: newArr },
-      });
-    }
-  };
-  const filter = (category) => {
-    if (router.query.category) {
-      const currentCategories = router.query.category;
-      if (Array.isArray(currentCategories)) {
-        currentCategories.push(category);
-        router.push({
-          pathname: "/",
-          query: { ...router.query, category: currentCategories, page: 1 },
-        });
-      } else {
-        const categoryArr = [];
-        categoryArr.push(currentCategories);
-        categoryArr.push(category);
-        router.push({
-          pathname: "/",
-          query: { ...router.query, category: categoryArr, page: 1 },
-        });
-      }
-    } else {
-      router.push({
-        pathname: "/",
-        query: { ...router.query, category, page: 1 },
-      });
-    }
-  };
 
   return (
     <Layout home>
@@ -82,15 +34,11 @@ export default function Home({ products, currentPage }) {
             />
           </Head>
 
-          <Filter filter={filter} removeCategoryFilter={removeCategoryFilter} />
+          <Filter />
           <main>
             <h1 className="title">Welcome</h1>
             <Products products={products.currentProducts} />
-            <Pagination
-              pageNumber={pageNumber}
-              paginate={paginate}
-              currentPage={currentPage}
-            />
+            <Pagination pageNumber={pageNumber} currentPage={currentPage} />
           </main>
 
           <style jsx>{`

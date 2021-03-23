@@ -1,4 +1,14 @@
-export default function Pagination({ pageNumber, paginate, currentPage }) {
+import { useRouter } from "next/router";
+export default function Pagination({ pageNumber, currentPage }) {
+  const router = useRouter();
+
+  const paginate = (page) => {
+    router.push({
+      pathname: "/",
+      query: { ...router.query, page },
+    });
+  };
+
   return (
     <div className="container">
       {[...Array(pageNumber)].map((_, number) =>

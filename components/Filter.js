@@ -4,10 +4,51 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
 import { useRef } from "react";
 
-export default function Filter({ filter, removeCategoryFilter }) {
+export default function Filter() {
   const router = useRouter();
   const minRef = useRef();
   const maxRef = useRef();
+
+  const filter = (category) => {
+    if (router.query.category) {
+      const currentCategories = router.query.category;
+      if (Array.isArray(currentCategories)) {
+        currentCategories.push(category);
+        router.push({
+          pathname: "/",
+          query: { ...router.query, category: currentCategories, page: 1 },
+        });
+      } else {
+        const categoryArr = [];
+        categoryArr.push(currentCategories);
+        categoryArr.push(category);
+        router.push({
+          pathname: "/",
+          query: { ...router.query, category: categoryArr, page: 1 },
+        });
+      }
+    } else {
+      router.push({
+        pathname: "/",
+        query: { ...router.query, category, page: 1 },
+      });
+    }
+  };
+
+  const removeCategoryFilter = (category) => {
+    if (!Array.isArray(router.query.category))
+      router.push({
+        pathname: "/",
+        query: { category: [] },
+      });
+    else {
+      const newArr = router.query.category.filter((item) => item !== category);
+      router.push({
+        pathname: "/",
+        query: { category: newArr },
+      });
+    }
+  };
 
   const filterPrice = () => {
     let minPrice, maxPrice;
@@ -29,7 +70,7 @@ export default function Filter({ filter, removeCategoryFilter }) {
     });
   };
 
-  const test = () => {
+  const resetFilterPrice = () => {
     router.push({
       pathname: "/",
       query: { ...router.query, min: [], max: [], page: 1 },
@@ -149,12 +190,7 @@ export default function Filter({ filter, removeCategoryFilter }) {
       <div className="price">
         <div className="priceBlock">
           <div className="priceSpan">
-            <input
-              ref={minRef}
-              type="number"
-              placeholder="Min"
-              // value={router.query.min ? router.query.min : null}
-            ></input>
+            <input ref={minRef} type="number" placeholder="Min"></input>
           </div>
           <div className="range"> - </div>
           <div className="priceSpan">
@@ -167,13 +203,17 @@ export default function Filter({ filter, removeCategoryFilter }) {
       </div>
       {router.query.min ? (
         <div className="priceFilter">
-          <div className="resetPriceFilter">
+          <div className="resetPriceFilter" onClick={resetFilterPrice}>
             <FontAwesomeIcon icon={faTimes} size="xs" />
           </div>
           <div className="priceFilterInfo">
             <div className="infoHeadline">Price</div>
             <div>
-              {router.query.min}-{router.query.max}
+              {router.query.max == 9999
+                ? `Above $${router.query.min}`
+                : router.query.min == 0
+                ? `Below $${router.query.max}`
+                : `$${router.query.min} - $${router.query.max}`}
             </div>
           </div>
         </div>
@@ -185,7 +225,7 @@ export default function Filter({ filter, removeCategoryFilter }) {
           top: 20px;
           height: fit-content;
           width: 12rem;
-          margin: 7rem 0 0 4rem;
+          margin: 7rem 0 0 6rem;
           border: 1px solid #e5e5e5;
           border-radius: 5px;
         }
@@ -264,10 +304,10 @@ export default function Filter({ filter, removeCategoryFilter }) {
           align-items: center;
           background: #eee;
           border-radius: 27px;
-          width: 50%;
+          width: 60%;
           margin: 0.6rem;
           padding: 4px;
-          line-height: 1.5;
+          line-height: 1.3;
         }
 
         .resetPriceFilter {
