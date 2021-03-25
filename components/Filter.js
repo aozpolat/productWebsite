@@ -225,7 +225,7 @@ export default function Filter() {
           top: 20px;
           height: fit-content;
           width: 12rem;
-          margin: 7rem 0 0 6rem;
+          margin: 2rem 0 0 6rem;
           border: 1px solid #e5e5e5;
           border-radius: 5px;
         }

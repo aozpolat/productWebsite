@@ -4,6 +4,7 @@ import Layout from "../components/layout";
 import Products from "../components/Products";
 import Pagination from "../components/Pagination";
 import Filter from "../components/Filter";
+import Banner from "../components/banner";
 
 export async function getServerSideProps({
   query: { page = 1, category = "all", min = 0, max = 9999 },
@@ -23,6 +24,7 @@ export default function Home({ products, currentPage }) {
   return (
     <Layout home>
       <div>
+        <Banner />
         <div className="container">
           <Head>
             <title>Products</title>
@@ -36,7 +38,6 @@ export default function Home({ products, currentPage }) {
 
           <Filter />
           <main>
-            <h1 className="title">Welcome</h1>
             <Products products={products.currentProducts} />
             <Pagination pageNumber={pageNumber} currentPage={currentPage} />
           </main>
@@ -52,6 +53,7 @@ export default function Home({ products, currentPage }) {
             main {
               padding: 1rem;
               margin-right: 5rem;
+              margin-top: 2rem;
               flex: 1;
               display: flex;
               flex-direction: column;
