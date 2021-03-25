@@ -35,16 +35,15 @@ export default function Products({ products }) {
       <style jsx>{`
         .grid {
           display: flex;
-          align-items: center;
-
+          align-items: flex-start;
+          justify-content: space-between;
           flex-wrap: wrap;
-          max-width: 1000px;
           margin-top: 2rem;
         }
 
         .card {
-          margin: 0.5rem;
-          flex-basis: 48%;
+          flex: 32% 0 0;
+          margin: 0.3rem;
           padding: 1.5rem;
           color: inherit;
           text-decoration: none;
