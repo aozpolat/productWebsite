@@ -27,19 +27,23 @@ export default function Banner() {
         slidesPerView={1}
       >
         <SwiperSlide>
-          <Image src="/1.png" alt="" width={400} height={250}></Image>
-          <span className="discount">20% Off</span>
+          <Image src="/test2.jpg" alt="" width={550} height={435}></Image>
         </SwiperSlide>
-        <SwiperSlide tag="li">
+        <SwiperSlide>
+          <Image src="/1.png" alt="" width={300} height={200}></Image>
+          <span className="discount">50% Off</span>
+        </SwiperSlide>
+        <SwiperSlide>
           <Image src="/2.png" alt="" width={370} height={320}></Image>
         </SwiperSlide>
       </Swiper>
 
       <style jsx>{`
         .discount {
-          margin-left: 2rem;
-          font-size: 60px;
-          color: crimson;
+          margin-left: 8rem;
+          margin-bottom: 2rem;
+          font-size: 110px;
+          color: #d588d6c4;
           transform: rotate(329deg);
           font-family: "Fredericka the Great", cursive;
         }
