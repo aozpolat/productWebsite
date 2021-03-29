@@ -40,11 +40,11 @@ export default function Banner() {
 
       <style jsx>{`
         .discount {
-          margin-left: 8rem;
+          margin-left: 6rem;
           margin-bottom: 2rem;
           font-size: 110px;
           color: #d588d6c4;
-          transform: rotate(329deg);
+          transform: rotate(347deg);
           font-family: "Fredericka the Great", cursive;
         }
       `}</style>
