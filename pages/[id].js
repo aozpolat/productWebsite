@@ -65,7 +65,7 @@ const Post = ({ product }) => {
         </div>
         <style jsx>{`
           .detailsContainer {
-            margin: 50px 10rem;
+            margin: 50px 12rem;
             display: flex;
             font-family: "Nunito", sans-serif;
             border-bottom: 1px solid #bbb4b4;
@@ -101,7 +101,7 @@ const Post = ({ product }) => {
             margin-right: 0.5rem;
         }
           .addToCart {
-            padding: 0.8rem 3rem;
+            padding: 1rem 4rem;
             border-radius: 4px;
             background: ivory;
             cursor: pointer;

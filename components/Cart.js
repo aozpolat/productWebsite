@@ -16,9 +16,8 @@ const Cart = ({ setIsHidden, isHidden }) => {
     <>
       <button onClick={clickCart}>
         <div className="icon">
-          {" "}
-          <FontAwesomeIcon icon={faShoppingCart} size="lg" />{" "}
-        </div>{" "}
+          <FontAwesomeIcon icon={faShoppingCart} size="lg" />
+        </div>
         <div className="total">{`$${total}`}</div>
       </button>
       <style jsx>{`

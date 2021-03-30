@@ -28,6 +28,7 @@
   height: fit-content;
   width: 350px;
   position: absolute;
+  z-index: 2;
   right: 0;
   border-radius: 6px;
   border: 1px solid #e8ebeb;

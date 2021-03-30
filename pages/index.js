@@ -5,6 +5,7 @@ import Products from "../components/Products";
 import Pagination from "../components/Pagination";
 import Filter from "../components/Filter";
 import Banner from "../components/Banner";
+import ScrollTop from "../components/ScrollTop";
 
 export async function getServerSideProps({
   query: { page = 1, category = "all", min = 0, max = 9999 },
@@ -23,56 +24,53 @@ export default function Home({ products, currentPage }) {
 
   return (
     <Layout home>
-      <div>
-        <Banner />
-        <div className="container">
-          <Head>
-            <title>Products</title>
-            <link rel="icon" href="/favicon.ico" />
-          </Head>
+      <Banner />
+      <div className="container">
+        <Head>
+          <title>Products</title>
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+        <Filter />
+        <main>
+          <Products products={products.currentProducts} />
+          <Pagination pageNumber={pageNumber} currentPage={currentPage} />
+        </main>
+        <ScrollTop />
+        <style jsx>{`
+          .container {
+            min-height: 100vh;
+            padding: 0 0.5rem;
+            display: flex;
+            justify-content: center;
+          }
 
-          <Filter />
-          <main>
-            <Products products={products.currentProducts} />
-            <Pagination pageNumber={pageNumber} currentPage={currentPage} />
-          </main>
+          main {
+            padding: 1rem;
+            margin-right: 4rem;
+            margin-top: 2rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+          }
 
-          <style jsx>{`
-            .container {
-              min-height: 100vh;
-              padding: 0 0.5rem;
-              display: flex;
-              justify-content: center;
-            }
+          .title {
+            margin: 0;
+            line-height: 1.15;
+            font-size: 4rem;
+          }
 
-            main {
-              padding: 1rem;
-              margin-right: 5rem;
-              margin-top: 2rem;
-              flex: 1;
-              display: flex;
+          .title {
+            text-align: center;
+          }
+
+          @media (max-width: 600px) {
+            .grid {
+              width: 100%;
               flex-direction: column;
-              justify-content: center;
             }
-
-            .title {
-              margin: 0;
-              line-height: 1.15;
-              font-size: 4rem;
-            }
-
-            .title {
-              text-align: center;
-            }
-
-            @media (max-width: 600px) {
-              .grid {
-                width: 100%;
-                flex-direction: column;
-              }
-            }
-          `}</style>
-        </div>
+          }
+        `}</style>
       </div>
     </Layout>
   );
