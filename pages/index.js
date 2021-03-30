@@ -4,7 +4,7 @@ import Layout from "../components/layout";
 import Products from "../components/Products";
 import Pagination from "../components/Pagination";
 import Filter from "../components/Filter";
-import Banner from "../components/banner";
+import Banner from "../components/Banner";
 
 export async function getServerSideProps({
   query: { page = 1, category = "all", min = 0, max = 9999 },
