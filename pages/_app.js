@@ -4,8 +4,7 @@ import "../styles/bannerStyles.css";
 export default function App({ Component, pageProps }) {
   return (
     <CartContext>
-      {" "}
-      <Component {...pageProps} />{" "}
+      <Component {...pageProps} />
     </CartContext>
   );
 }
