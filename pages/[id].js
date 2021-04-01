@@ -13,7 +13,6 @@ const Post = ({ product }) => {
   deliveryTime.setDate(today.getDate() + 4);
   const month = deliveryTime.toLocaleString("eng", { month: "short" });
   const deliveryDate = month + " " + deliveryTime.getDate();
-  console.log(deliveryDate);
   return (
     <Layout cart={cart}>
       <Head>
