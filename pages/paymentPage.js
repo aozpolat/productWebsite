@@ -6,7 +6,7 @@ export default function CreditCart() {
   const { URL } = useList();
   return (
     <Layout payment>
-      <iframe src={`${URL}`}></iframe>
+      <iframe src={`${URL}`} frameBorder="0"></iframe>
 
       <style jsx>{`
         iframe {
