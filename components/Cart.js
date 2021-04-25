@@ -23,7 +23,7 @@ const Cart = ({ setIsHidden, isHidden }) => {
       <style jsx>{`
         button {
           background-color: #efefc2;
-          margin-right: 6rem;
+          margin-right: 8rem;
           padding: 0 1rem 0 0;
           border-radius: 3px;
           display: flex;
