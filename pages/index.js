@@ -32,7 +32,11 @@ export default function Home({ products, currentPage }) {
         </Head>
         <Filter />
         <main>
-          <Products products={products.currentProducts} />
+          <Products
+            products={products.currentProducts}
+            currentPage={currentPage}
+            productsPerPage={products.productsPerPage}
+          />
           <Pagination pageNumber={pageNumber} currentPage={currentPage} />
         </main>
         <ScrollTop />

@@ -1,13 +1,13 @@
 import Link from "next/link";
 import { useList } from "../contexts/cartContext";
 
-export default function Products({ products }) {
+export default function Products({ products, currentPage, productsPerPage }) {
   const { addToCart } = useList();
   return (
     <div className="grid">
       {products.map((product, index) => (
         <div className="card" key={index + 1}>
-          <Link href={`/${index + 1}`}>
+          <Link href={`/${index + 1 + (currentPage - 1) * productsPerPage}`}>
             <a>
               <img src={product.imageUrl} alt=""></img>
               <h3>{product.name} </h3>
