@@ -39,13 +39,13 @@ export default function Filter() {
     if (!Array.isArray(router.query.category))
       router.push({
         pathname: "/",
-        query: { category: [] },
+        query: { ...router.query, category: [], page: 1 },
       });
     else {
       const newArr = router.query.category.filter((item) => item !== category);
       router.push({
         pathname: "/",
-        query: { category: newArr },
+        query: { ...router.query, category: newArr, page: 1 },
       });
     }
   };
